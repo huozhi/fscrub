@@ -5,7 +5,7 @@
   "main": "dist/scrub.js",
   "scripts": {
     "start": "parcel example/index.html -d example/dist --cache-dir example/.cache",
-    "build": "rm -rf dist/* && bunchee src/scrub.js"
+    "build": "bunchee src/scrub.js"
   },
   "repository": {
     "type": "git",
