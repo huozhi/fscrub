@@ -9,6 +9,10 @@
     "docs:update": "npm run docs && gh-pages -d ./example/dist",
     "build": "bunchee src/fscrub.js"
   },
+  "files": [
+    "dist",
+    "*.md"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/huozhi/fscrub.git"
