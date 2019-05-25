@@ -1,4 +1,4 @@
-import scrub from '../'
+import fscrub from '../'
 
 const logs = []
 const logNode = document.getElementById('logs')
@@ -61,7 +61,7 @@ function app() {
   }
 
   function observeScrubConfiguration({isMouseSupportEnabled, isTouchSupportEnabled}) {
-    return scrub(
+    return fscrub(
       block,
       {
         onStart: start,
