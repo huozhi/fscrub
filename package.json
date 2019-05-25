@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "universal scrub listener for devices support mouse or touch",
   "main": "dist/fscrub.js",
+  "module": "dist/fscrub.esm.js",
   "scripts": {
     "start": "parcel example/index.html -d example/dist --cache-dir example/.cache",
     "docs": "rm -rf exmaple/dist && parcel build example/index.html -d example/dist --no-source-maps --no-cache",
