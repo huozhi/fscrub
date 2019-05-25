@@ -1,0 +1,49 @@
+body {
+  font-family: sans-serif;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 20px 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+#app {
+  width: 100%;
+  padding: 0 20px;
+  max-height: 100%;
+}
+
+#logs {
+  position: absolute;
+  bottom: 10px;
+  right: 0;
+}
+
+.scrub {
+  position: absolute;
+  margin-top: 60px;
+  width: 350px;
+  height: 20px;
+  background: #8cd0cf;
+  position: relative;
+}
+
+.scrub__head {
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  background: #e6b253;
+  margin-top: -20px;
+  top: 50%;
+}
