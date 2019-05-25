@@ -19,31 +19,37 @@ function scrub(
     ? ['pointerdown', 'pointermove', 'pointerup']
     : ['touchstart', 'touchmove', 'touchend']
 
-  const cancelEvent = isPointerSupported ? 'pointerleave' : 'touchcancel'
+  const cancelEvent = isPointerSupported ? 'pointercancel' : 'touchcancel'
 
   const [startEvent, moveEvent, endEvent] = events
   let scrubbing = false
 
+  function onScrubStart(e) {
+    scrubbing = true
+    onStart(e)
+  }
+  
+  function onScrubEnd(e) {
+    onEnd(e)
+    scrubbing = false
+  }
+  
   function handleStart(e) {
     scrubbing = true
-    if (isMouseEnabled && isMouseTypePointerEvent(e)) onStart(e)
-    if (isTouchEnabled && (isTouchTypePointerEvent(e) || isTouchEvent(e)))
-      onStart(e)
+    if (isMouseEnabled && isMouseTypePointerEvent(e)) onScrubStart(e)
+    if (isTouchEnabled && (isTouchTypePointerEvent(e) || isTouchEvent(e))) onScrubStart(e)
   }
 
   function handleMove(e) {
     if (scrubbing) {
       if (isMouseEnabled && isMouseTypePointerEvent(e)) onMove(e)
-      if (isTouchEnabled && (isTouchTypePointerEvent(e) || isTouchEvent(e)))
-        onMove(e)
+      if (isTouchEnabled && (isTouchTypePointerEvent(e) || isTouchEvent(e))) onMove(e)
     }
   }
 
-  function handleEnd(e) {
-    scrubbing = false
-    if (isMouseEnabled && isMouseTypePointerEvent(e)) onEnd(e)
-    if (isTouchEnabled && (isTouchTypePointerEvent(e) || isTouchEvent(e)))
-      onEnd(e)
+  function handleEnd(e) {    
+    if (isMouseEnabled && isMouseTypePointerEvent(e)) onScrubEnd(e)
+    if (isTouchEnabled && (isTouchTypePointerEvent(e) || isTouchEvent(e))) onScrubEnd(e)
   }
 
   node.addEventListener(startEvent, handleStart)
@@ -55,7 +61,18 @@ function scrub(
     node.addEventListener('mousedown', handleStart)
     node.addEventListener('mousemove', handleMove)
     node.addEventListener('mouseup', handleEnd)
-    node.addEventListener('mouseleave', handleEnd)
+  }
+
+  return function release() {
+    node.removeEventListener(startEvent, handleStart)
+    node.removeEventListener(moveEvent, handleStart)
+    node.removeEventListener(endEvent, handleStart)
+
+    if (!isPointerSupported && isMouseEnabled) {
+      node.removeEventListener('mousedown', handleStart)
+      node.removeEventListener('mousemove', handleMove)
+      node.removeEventListener('mouseup', handleEnd)
+    }
   }
 }
 

@@ -5,6 +5,8 @@ const logs = []
 const logNode = document.getElementById('logs')
 const statusNode = document.getElementById('status')
 const rootNode = document.getElementById('app')
+const mouseToggler = document.querySelector('#mouse-toggler')
+const touchToggler = document.querySelector('#touch-toggler')
 const block = document.querySelector('.scrub__head')
 
 const mouseEvents = [
@@ -31,46 +33,67 @@ function renderLog() {
 }
 
 function app() {
-  window.addEventListener('touchmove', e => e.preventDefault())
-
-  const allEvents = mouseEvents.concat(touchEvents).concat(pointerEvents)
+  const allEvents = []; mouseEvents.concat(touchEvents).concat(pointerEvents)
   allEvents.forEach(event => {
     rootNode.addEventListener(event, () => {
-      const args = [event, event.pointerType].filter(Boolean)
-      logging(args.join(' '))
-      renderLog()
+      // add promise 'cause directly re-render will block checkbox triggering
+      Promise.resolve(() => {
+        const args = [event, event.pointerType].filter(Boolean)
+        logging(args.join(' '))
+        renderLog()
+      })
     })
   })
 
   function start(e) {
-    statusNode.innerText = window.PointerEvent ? 'PointerStart' : 'Start'
+    statusNode.innerText = 'Scrub Start'
     const clientX = e.touches ? e.touches[0].clientX : e.clientX
-
     block.style.left = `${clientX - 40}px`
   }
 
   function move(e) {
-    statusNode.innerText = window.PointerEvent ? 'PointerMove' : 'Move'
+    statusNode.innerText = 'Scrub Move'
     const clientX = e.touches ? e.touches[0].clientX : e.clientX
     block.style.left = `${clientX - 40}px`
   }
 
   function end() {
-    statusNode.innerText = window.PointerEvent ? 'PointerEnd' : 'End'
+    statusNode.innerText = 'Scrub End'
   }
 
-  scrub(
-    block,
-    {
-      onStart: start,
-      onMove: move,
-      onEnd: end
-    },
-    {
-      mouse: true,
-      touch: true
-    }
-  )
+  function observeScrubConfiguration({isMouseSupportEnabled, isTouchSupportEnabled}) {
+    return scrub(
+      block,
+      {
+        onStart: start,
+        onMove: move,
+        onEnd: end
+      },
+      {
+        mouse: isMouseSupportEnabled,
+        touch: isTouchSupportEnabled,
+      }
+    )
+  }
+
+  let releaseScrub = () => {}
+  ;[mouseToggler, touchToggler].forEach(toggler => {
+    toggler.addEventListener('change', () => {
+      console.log('onchange', mouseToggler.value, mouseToggler.checked, touchToggler.checked)
+      if (!mouseToggler.checked) mouseToggler.removeAttribute('checked')
+      if (!touchToggler.checked) touchToggler.removeAttribute('checked')
+      releaseScrub();
+      releaseScrub = observeScrubConfiguration({
+        isMouseSupportEnabled: mouseToggler.checked, 
+        isTouchSupportEnabled: touchToggler.checked
+      })
+    })
+  })
+
+  releaseScrub = observeScrubConfiguration({
+    isMouseSupportEnabled: mouseToggler.checked, 
+    isTouchSupportEnabled: touchToggler.checked
+  })
 }
 
 app()
