@@ -2,8 +2,10 @@
   "name": "scrub",
   "version": "0.0.1",
   "description": "universal scrub listener for devices support mouse or touch",
-  "main": "lib/scrub.js",
+  "main": "dist/scrub.js",
   "scripts": {
+    "start": "parcel example/index.html -d example/dist",
+    "build": "bunchee src/scrub.js"
   },
   "repository": {
     "type": "git",
