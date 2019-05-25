@@ -1,0 +1,26 @@
+{
+  "name": "scrub",
+  "version": "0.0.1",
+  "description": "universal scrub listener for devices support mouse or touch",
+  "main": "lib/scrub.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/huozhi/scrub.git"
+  },
+  "keywords": [
+    "scrub",
+    "touch",
+    "mouse",
+    "universal-scrub",
+    "compatible"
+  ],
+  "author": "huozhi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/huozhi/scrub/issues"
+  },
+  "homepage": "https://github.com/huozhi/scrub#readme"
+}
