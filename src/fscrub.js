@@ -1,6 +1,6 @@
 function noop() {}
 
-function scrub(
+function fscrub(
   node,
   handlers = {},
   options
@@ -76,4 +76,4 @@ function scrub(
   }
 }
 
-export default scrub
+export default fscrub

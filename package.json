@@ -1,17 +1,17 @@
 {
-  "name": "scrub",
+  "name": "fscrub",
   "version": "0.0.1",
   "description": "universal scrub listener for devices support mouse or touch",
-  "main": "dist/scrub.js",
+  "main": "dist/fscrub.js",
   "scripts": {
     "start": "parcel example/index.html -d example/dist --cache-dir example/.cache",
     "docs": "rm -rf exmaple/dist && parcel build example/index.html -d example/dist --no-source-maps --no-cache",
     "docs:update": "npm run docs && gh-pages -d ./example/dist",
-    "build": "bunchee src/scrub.js"
+    "build": "bunchee src/fscrub.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/huozhi/scrub.git"
+    "url": "git+https://github.com/huozhi/fscrub.git"
   },
   "keywords": [
     "scrub",
@@ -23,9 +23,9 @@
   "author": "huozhi",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/huozhi/scrub/issues"
+    "url": "https://github.com/huozhi/fscrub/issues"
   },
-  "homepage": "https://github.com/huozhi/scrub#readme",
+  "homepage": "https://github.com/huozhi/fscrub#readme",
   "devDependencies": {
     "bunchee": "^0.2.1",
     "gh-pages": "^2.0.1"
