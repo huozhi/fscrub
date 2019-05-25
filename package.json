@@ -4,8 +4,8 @@
   "description": "universal scrub listener for devices support mouse or touch",
   "main": "dist/scrub.js",
   "scripts": {
-    "start": "parcel example/index.html -d example/dist",
-    "build": "bunchee src/scrub.js"
+    "start": "parcel example/index.html -d example/dist --cache-dir example/.cache",
+    "build": "rm -rf dist/* && bunchee src/scrub.js"
   },
   "repository": {
     "type": "git",
