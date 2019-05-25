@@ -4,7 +4,6 @@
   "description": "universal scrub listener for devices support mouse or touch",
   "main": "lib/scrub.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -22,5 +21,8 @@
   "bugs": {
     "url": "https://github.com/huozhi/scrub/issues"
   },
-  "homepage": "https://github.com/huozhi/scrub#readme"
+  "homepage": "https://github.com/huozhi/scrub#readme",
+  "devDependencies": {
+    "bunchee": "^0.2.1"
+  }
 }
