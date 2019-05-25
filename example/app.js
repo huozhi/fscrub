@@ -1,4 +1,3 @@
-import './styles.css'
 import scrub from '../'
 
 const logs = []
@@ -79,7 +78,6 @@ function app() {
   let releaseScrub = () => {}
   ;[mouseToggler, touchToggler].forEach(toggler => {
     toggler.addEventListener('change', () => {
-      console.log('onchange', mouseToggler.value, mouseToggler.checked, touchToggler.checked)
       if (!mouseToggler.checked) mouseToggler.removeAttribute('checked')
       if (!touchToggler.checked) touchToggler.removeAttribute('checked')
       releaseScrub();

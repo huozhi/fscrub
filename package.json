@@ -5,6 +5,8 @@
   "main": "dist/scrub.js",
   "scripts": {
     "start": "parcel example/index.html -d example/dist --cache-dir example/.cache",
+    "docs": "rm -rf exmaple/dist && parcel build example/index.html -d example/dist --no-source-maps --no-cache",
+    "docs:update": "npm run docs && gh-pages -d ./example/dist",
     "build": "bunchee src/scrub.js"
   },
   "repository": {
@@ -25,6 +27,7 @@
   },
   "homepage": "https://github.com/huozhi/scrub#readme",
   "devDependencies": {
-    "bunchee": "^0.2.1"
+    "bunchee": "^0.2.1",
+    "gh-pages": "^2.0.1"
   }
 }
