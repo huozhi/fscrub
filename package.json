@@ -6,7 +6,7 @@
   "module": "dist/fscrub.esm.js",
   "scripts": {
     "start": "parcel example/index.html -d example/dist --cache-dir example/.cache",
-    "docs": "rm -rf exmaple/dist && parcel build example/index.html -d example/dist --no-source-maps --no-cache",
+    "docs": "rm -rf exmaple/dist && parcel build example/index.html -d example/dist --public-url /fscrub/ --no-source-maps --no-cache",
     "docs:update": "npm run docs && gh-pages -d ./example/dist",
     "build": "bunchee src/fscrub.js"
   },
@@ -33,6 +33,7 @@
   "homepage": "https://github.com/huozhi/fscrub#readme",
   "devDependencies": {
     "bunchee": "^0.2.1",
+    "cssnano": "^4.1.10",
     "gh-pages": "^2.0.1"
   }
 }
