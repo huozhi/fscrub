@@ -6,7 +6,9 @@ const statusNode = document.getElementById('status')
 const rootNode = document.getElementById('app')
 const mouseToggler = document.querySelector('#mouse-toggler')
 const touchToggler = document.querySelector('#touch-toggler')
+const timeline = document.querySelector('.scrub')
 const block = document.querySelector('.scrub__head')
+const indicator = document.querySelector('.scrub__indicator')
 
 const mouseEvents = [
   'mouseenter',
@@ -28,41 +30,50 @@ function logging(text) {
 
 function renderLog() {
   const html = logs.map(t => `<div>${t}</div>`).join('')
-  return (logNode.innerHTML = html)
+  return html
 }
 
 function app() {
-  const allEvents = []; mouseEvents.concat(touchEvents).concat(pointerEvents)
+  const allEvents = mouseEvents.concat(touchEvents).concat(pointerEvents)
   allEvents.forEach(event => {
     rootNode.addEventListener(event, () => {
       // add promise 'cause directly re-render will block checkbox triggering
-      Promise.resolve(() => {
+      Promise.resolve().then(() => {
         const args = [event, event.pointerType].filter(Boolean)
         logging(args.join(' '))
-        renderLog()
+        logNode.innerHTML = renderLog()
       })
     })
   })
 
   function start(e) {
     statusNode.innerText = 'Scrub Start'
-    const clientX = e.touches ? e.touches[0].clientX : e.clientX
-    block.style.left = `${clientX - 40}px`
   }
 
   function move(e) {
     statusNode.innerText = 'Scrub Move'
-    const clientX = e.touches ? e.touches[0].clientX : e.clientX
-    block.style.left = `${clientX - 40}px`
+    setPos(e)
   }
 
-  function end() {
+  function end(e) {
     statusNode.innerText = 'Scrub End'
+  }
+
+  function setPos(e) {
+    const parentBcr = timeline.getBoundingClientRect()
+
+    const pageX = e.touches ? e.touches[0].pageX : e.pageX
+    const distance = pageX - parentBcr.left
+
+    const offsetX = Math.min(Math.max(0, distance), parentBcr.width)
+
+    indicator.style.width = `${pageX}px`
+    block.style.transform = `translateX(${offsetX}px)`
   }
 
   function observeScrubConfiguration({isMouseSupportEnabled, isTouchSupportEnabled}) {
     return fscrub(
-      block,
+      timeline,
       {
         onStart: start,
         onMove: move,
@@ -82,14 +93,14 @@ function app() {
       if (!touchToggler.checked) touchToggler.removeAttribute('checked')
       releaseScrub();
       releaseScrub = observeScrubConfiguration({
-        isMouseSupportEnabled: mouseToggler.checked, 
+        isMouseSupportEnabled: mouseToggler.checked,
         isTouchSupportEnabled: touchToggler.checked
       })
     })
   })
 
   releaseScrub = observeScrubConfiguration({
-    isMouseSupportEnabled: mouseToggler.checked, 
+    isMouseSupportEnabled: mouseToggler.checked,
     isTouchSupportEnabled: touchToggler.checked
   })
 }

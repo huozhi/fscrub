@@ -24,20 +24,10 @@ function fscrub(
   const [startEvent, moveEvent, endEvent] = events
   let scrubbing = false
 
-  function onScrubStart(e) {
-    scrubbing = true
-    onStart(e)
-  }
-  
-  function onScrubEnd(e) {
-    onEnd(e)
-    scrubbing = false
-  }
-  
   function handleStart(e) {
     scrubbing = true
-    if (isMouseEnabled && isMouseTypePointerEvent(e)) onScrubStart(e)
-    if (isTouchEnabled && (isTouchTypePointerEvent(e) || isTouchEvent(e))) onScrubStart(e)
+    if (isMouseEnabled && isMouseTypePointerEvent(e)) onStart(e)
+    if (isTouchEnabled && (isTouchTypePointerEvent(e) || isTouchEvent(e))) onStart(e)
   }
 
   function handleMove(e) {
@@ -47,32 +37,36 @@ function fscrub(
     }
   }
 
-  function handleEnd(e) {    
-    if (isMouseEnabled && isMouseTypePointerEvent(e)) onScrubEnd(e)
-    if (isTouchEnabled && (isTouchTypePointerEvent(e) || isTouchEvent(e))) onScrubEnd(e)
+  function handleEnd(e) {
+    scrubbing = false
+    if (isMouseEnabled && isMouseTypePointerEvent(e)) onEnd(e)
+    if (isTouchEnabled && (isTouchTypePointerEvent(e) || isTouchEvent(e))) onEnd(e)
   }
 
   node.addEventListener(startEvent, handleStart)
   node.addEventListener(moveEvent, handleMove)
-  node.addEventListener(endEvent, handleEnd)
+  document.addEventListener(endEvent, handleEnd)
+
   node.addEventListener(cancelEvent, handleEnd)
 
   if (!isPointerSupported && isMouseEnabled) {
     node.addEventListener('mousedown', handleStart)
     node.addEventListener('mousemove', handleMove)
-    node.addEventListener('mouseup', handleEnd)
+    document.addEventListener('mouseup', handleEnd)
   }
 
   return function release() {
     node.removeEventListener(startEvent, handleStart)
     node.removeEventListener(moveEvent, handleStart)
-    node.removeEventListener(endEvent, handleStart)
+    document.removeEventListener(endEvent, handleStart)
 
     if (!isPointerSupported && isMouseEnabled) {
       node.removeEventListener('mousedown', handleStart)
       node.removeEventListener('mousemove', handleMove)
-      node.removeEventListener('mouseup', handleEnd)
+      document.removeEventListener('mouseup', handleEnd)
     }
+
+    node.removeEventListener(cancelEvent, handleEnd)
   }
 }
 

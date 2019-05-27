@@ -47,6 +47,7 @@ body {
   height: 20px;
   background: #8cd0cf;
   position: relative;
+  touch-action: none;
 }
 
 .scrub__head {
@@ -58,6 +59,14 @@ body {
   top: 50%;
 }
 
+.scrub__indicator {
+  position: absolute;
+  left: 0;
+  top: 2px;
+  height: 3px;
+  background: #e6b253;
+}
+
 .togglers {
   margin-bottom: 30px;
 }
@@ -66,6 +75,7 @@ body {
 </head>
 
 <body>
+  <div class="scrub__indicator"></div>
 	<div id="app">
 		<h1>
 			Universal Scrub Experience
@@ -75,10 +85,10 @@ body {
 			<input type="checkbox" checked id="mouse-toggler"> Enable Mouse Support
 		</div>
 		<div id="status">Pending</div>
-		
+
 		<div id="logs"></div>
 		<div class="scrub">
-			<div class="scrub__head"></div>
+      <div class="scrub__head"></div>
 			<script src="./app.js"></script>
 		</div>
 	</div>
