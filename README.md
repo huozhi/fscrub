@@ -9,11 +9,11 @@ Let's see the observation on behavior of desktop devices + mouse and touchable d
 
 |Browser & Action| PointerEvent | MouseEvent | TouchEvent |
 |:---:|:---:|:---:|:---:|
+| chrome + touch | ✅ | ✅ | ✅ |
 | edge + touch | ✅ | ✅ | ❌ |
-| chrome + touch | ✅ | ❌ | ✅ |
 | safari + touch | ❌ | ❌ | ✅ |
-| edge + mouse | ✅ | ✅ | ❌ |
 | chrome + mouse | ✅ | ✅ | ❌ |
+| edge + mouse | ✅ | ✅ | ❌ |
 | safari + mouse | ❌ | ✅ | ❌ |
 
 Emmmmm......
@@ -52,9 +52,9 @@ fscrub(
 
 ```js
 fscrub(
-  node: Node, 
+  node: Node,
   {
-    onStart: function(MouseEvent | PointerEvent | TouchEvent) {}, 
+    onStart: function(MouseEvent | PointerEvent | TouchEvent) {},
     onMove: function(MouseEvent | PointerEvent | TouchEvent) {},
     onEnd: function(MouseEvent | PointerEvent | TouchEvent) {},
   },
