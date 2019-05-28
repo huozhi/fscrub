@@ -38,7 +38,6 @@ function fscrub(
   const events = hover ? getHoverEvents() : getScrubEvents()
   const endElement = hover ? node : document
 
-  console.log('db:fscrub', node.className, options, events)
   const [startEvent, moveEvent, endEvent] = events
   let isMoving = false
 
