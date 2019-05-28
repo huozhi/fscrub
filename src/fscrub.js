@@ -29,7 +29,7 @@ function fscrub(
   const {onStart = noop, onMove = noop, onEnd = noop} = handlers
   options = Object.assign({hover: false, mouse: false, touch: true}, options)
   if (options.hover) {
-    options.touch = options.mouse = false;
+    options.mouse = false;
   }
   const {hover, mouse, touch} = options
   const isHoverEnabled = Boolean(hover)
