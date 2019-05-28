@@ -1,6 +1,6 @@
 {
   "name": "fscrub",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "universal scrub listener for devices support mouse or touch",
   "main": "dist/fscrub.js",
   "module": "dist/fscrub.esm.js",
