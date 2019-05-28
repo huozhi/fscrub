@@ -42,8 +42,9 @@ fscrub(
     onEnd() { ... },
   },
   {
-    mouse: true,
+    mouse: false,
     touch: true,
+    hover: true,
   }
 )
 ```
@@ -58,7 +59,7 @@ fscrub(
     onMove: function(MouseEvent | PointerEvent | TouchEvent) {},
     onEnd: function(MouseEvent | PointerEvent | TouchEvent) {},
   },
-  { mouse: boolean, touch: boolean }
+  { mouse: boolean, touch: boolean, hover: boolean }
 )
 ```
 
@@ -66,7 +67,8 @@ fscrub(
 
 * `node` is the scrubble dom node you want to track the scrub moves.
 * `handles` is an `object`. which may carry `onStart`, `onMove` and `onEnd` for different scrub phases.
-* `option` is an `object`. `option.mouse` will enable triggering scrub events when playing with mouse, `option.touch` is for finger touch.
+* `option` is an `object`.
+  `option.mouse` will enable triggering scrub events when playing with mouse, `option.touch` is for finger touch. if you specify `option.hover` to `true`, it will turn `option.mouse` to false. since the behavior have conflicts
 
 ### Returns
 
