@@ -6,6 +6,7 @@ const statusNode = document.getElementById('status')
 const rootNode = document.getElementById('app')
 const mouseToggler = document.querySelector('#mouse-toggler')
 const touchToggler = document.querySelector('#touch-toggler')
+const hoverToggler = document.querySelector('#hover-toggler')
 const timeline = document.querySelector('.scrub')
 const block = document.querySelector('.scrub__head')
 const indicator = document.querySelector('.scrub__indicator')
@@ -71,7 +72,11 @@ function app() {
     block.style.transform = `translateX(${offsetX}px)`
   }
 
-  function observeScrubConfiguration({isMouseSupportEnabled, isTouchSupportEnabled}) {
+  function observeScrubConfiguration({
+    isMouseSupportEnabled,
+    isTouchSupportEnabled,
+    isHoverSupportEnabled
+  }) {
     return fscrub(
       timeline,
       {
@@ -82,26 +87,29 @@ function app() {
       {
         mouse: isMouseSupportEnabled,
         touch: isTouchSupportEnabled,
+        hover: isHoverSupportEnabled,
       }
     )
   }
 
   let releaseScrub = () => {}
-  ;[mouseToggler, touchToggler].forEach(toggler => {
+  ;[mouseToggler, touchToggler, hoverToggler].forEach(toggler => {
     toggler.addEventListener('change', () => {
       if (!mouseToggler.checked) mouseToggler.removeAttribute('checked')
       if (!touchToggler.checked) touchToggler.removeAttribute('checked')
       releaseScrub();
       releaseScrub = observeScrubConfiguration({
         isMouseSupportEnabled: mouseToggler.checked,
-        isTouchSupportEnabled: touchToggler.checked
+        isTouchSupportEnabled: touchToggler.checked,
+        isHoverSupportEnabled: hoverToggler.checked,
       })
     })
   })
 
   releaseScrub = observeScrubConfiguration({
     isMouseSupportEnabled: mouseToggler.checked,
-    isTouchSupportEnabled: touchToggler.checked
+    isTouchSupportEnabled: touchToggler.checked,
+    isHoverSupportEnabled: hoverToggler.checked,
   })
 }
 
