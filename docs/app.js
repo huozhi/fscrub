@@ -1,4 +1,4 @@
-import fscrub from '../'
+import fscrub from 'https://cdn.jsdelivr.net/gh/huozhi/fscrub@master/src/fscrub.js'
 
 const logs = []
 const logNode = document.getElementById('logs')
